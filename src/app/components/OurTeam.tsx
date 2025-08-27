@@ -14,7 +14,7 @@ const teamMembers = [
     name: "Darinka Polich",
     role: "Content Creator, Community Manager",
     img: "/images/Darinka.jpg",
-    img2: "/images/Foto-Dari.jpg",
+    img2: "/images/Foto-Dari.JPG",
     description: `En Bastra Studio gestiono redes sociales y creo contenido que conecta. Diseño estrategias, produzco fotos, videos y campañas alineadas con la esencia de la marca. Cada publicación tiene un objetivo claro: atraer, inspirar, vender o fidelizar.`,
   },
   {
@@ -27,7 +27,7 @@ const teamMembers = [
   {
     name: "Sofía Husty",
     role: "Fotógrafa, Productora Visual",
-    img: "/images/Sofia.jpg",
+    img: "/images/Sofia.JPG",
     img2: "/images/Foto-sofi.jpg",
     description: `Como fotógrafa y productora audiovisual de “Bastra”, mi trabajo consiste no solo en materializar tus ideas y hacerlas realidad, sino en ayudarte a envisionarlas y crear una imagen clara de lo que identifica a tu marca, lo que la representa y diferencia de las demás.`,
   },
@@ -76,38 +76,6 @@ export default function OurTeam() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Sección de descripciones individuales tipo reel */}
-      <section className="bg-[#edebdd] max-w-7xl mx-auto px-6">
-        {teamMembers.map((member, index) => (
-          <div
-            key={index}
-            className={`flex flex-col md:flex-row items-center gap-8 py-12 ${
-              index !== teamMembers.length - 1 ? "border-b border-[#810010]/20" : ""
-            }`}
-          >
-            {/* Imagen estilo reel */}
-            <div className="flex justify-start items-center w-full md:w-1/2">
-              <div className="relative w-[300px] h-[533px] rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src={member.img}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Texto a la derecha */}
-            <div className="flex flex-col justify-center items-start w-full md:w-1/2 text-[#810010]">
-              <h2 className="text-5xl font-[PT-Bold] mb-6">{member.name}</h2>
-              <p className="text-xl font-[PT-Regular] leading-relaxed max-w-xl">
-                {member.description}
-              </p>
-            </div>
-          </div>
-        ))}
       </section>
     </div>
   );

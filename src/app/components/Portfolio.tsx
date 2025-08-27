@@ -379,7 +379,8 @@ export default function Portfolio() {
         </div>
       )}
 
-    {/* Marketing */}
+      {/* Marketing */}
+{/* Marketing */}
 {activeIndex === 1 && (
   <section className="py-10 sm:py-14 bg-transparent">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -390,9 +391,9 @@ export default function Portfolio() {
       {/* Mobile: scroll horizontal / Desktop: grid */}
       <div className="md:grid md:grid-cols-4 md:gap-6 lg:gap-8 flex gap-4 overflow-x-auto snap-x snap-mandatory hidden-scrollbar -mx-2 md:mx-0">
         {[
-          { src: "/videos/Darinka.mp4", poster: "/images/posters/mkt1.jpg" },
-          { src: "/videos/Darinka-2.mp4", poster: "/images/posters/mkt2.jpg" },
-          { src: "/videos/Darinka-3.mp4", poster: "/images/posters/mkt3.jpg" },
+          { src: "/videos/Darinka.mp4", poster: "/videos/Darinka.mp4" },
+          { src: "/videos/Darinka-2.mp4", poster: "/videos/Darinka-2.mp4" },
+          { src: "/videos/Darinka-3.mp4", poster: "/videos/Darinka-3.mp4" },
           { src: "/videos/mkt4.mp4", poster: "/images/posters/mkt4.jpg" },
         ].map((r, i) => (
           <article
@@ -403,7 +404,9 @@ export default function Portfolio() {
               <video
                 src={r.src}
                 poster={r.poster}
-                controls
+                muted
+                autoPlay
+                loop
                 playsInline
                 preload="metadata"
                 className="h-full w-full object-cover"
@@ -415,9 +418,18 @@ export default function Portfolio() {
         ))}
       </div>
     </div>
+
+    <style jsx global>{`
+      .hidden-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hidden-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    `}</style>
   </section>
 )}
-
 
 
       {/* Sofía – Fotografía & Audiovisual */}
