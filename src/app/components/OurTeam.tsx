@@ -14,7 +14,7 @@ const teamMembers = [
     name: "Darinka Polich",
     role: "Content Creator, Community Manager",
     img: "/images/Darinka.jpg",
-    img2: "/images/Foto-Dari.JPG",
+    img2: "/images/Foto-Darinka.JPG",
     description: `En Bastra Studio gestiono redes sociales y creo contenido que conecta. Diseño estrategias, produzco fotos, videos y campañas alineadas con la esencia de la marca. Cada publicación tiene un objetivo claro: atraer, inspirar, vender o fidelizar.`,
   },
   {
