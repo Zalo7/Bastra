@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 const teamMembers = [
   {
@@ -14,7 +15,7 @@ const teamMembers = [
     name: "Darinka Polich",
     role: "Content Creator, Community Manager",
     img: "/images/Darinka.jpg",
-    img2: "/images/Foto-Darinka.JPG",
+    img2: "/images/Darinka.JPG",
     description: `En Bastra Studio gestiono redes sociales y creo contenido que conecta. Diseño estrategias, produzco fotos, videos y campañas alineadas con la esencia de la marca. Cada publicación tiene un objetivo claro: atraer, inspirar, vender o fidelizar.`,
   },
   {
@@ -28,7 +29,7 @@ const teamMembers = [
     name: "Sofía Husty",
     role: "Fotógrafa, Productora Visual",
     img: "/images/Sofia.JPG",
-    img2: "/images/Foto-sofi.jpg",
+    img2: "/images/Sofia.JPG",
     description: `Como fotógrafa y productora audiovisual de “Bastra”, mi trabajo consiste no solo en materializar tus ideas y hacerlas realidad, sino en ayudarte a envisionarlas y crear una imagen clara de lo que identifica a tu marca, lo que la representa y diferencia de las demás.`,
   },
 ];
@@ -36,7 +37,6 @@ const teamMembers = [
 export default function OurTeam() {
   return (
     <div className="min-h-screen bg-[#edebdd] text-[#810010]">
-      {/* Sección principal del equipo */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-5xl font-bold text-center mb-16 font-[PT-Bold] text-[#810010]">
           Nuestro Equipo
@@ -44,39 +44,84 @@ export default function OurTeam() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center group"
-            >
-              <h2 className="text-2xl text-[#810010] font-semibold mb-2 font-[PT-Bold]">
-                {member.name}
-              </h2>
-
-              {/* Contenedor con efecto */}
-              <div className="relative overflow-hidden rounded-lg shadow-lg">
-                <Image
-                  src={member.img}
-                  alt={member.name}
-                  width={300}
-                  height={450}
-                  className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-110 group-hover:blur-sm"
-                />
-                {/* Overlay con descripción */}
-                <div className="absolute inset-0 bg-[#810100] bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                  <p className="text-[#edebdd] font-[PT-Regular] text-sm">
-                    {member.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Roles debajo */}
-              <p className="mt-3 text-[#810010] font-[PT-Regular] whitespace-pre-line">
-                {member.role.replace(/,\s*/g, "\n")}
-              </p>
-            </div>
+            <TeamCard key={index} member={member} />
           ))}
         </div>
       </section>
+    </div>
+  );
+}
+
+function TeamCard({
+  member,
+}: {
+  member: {
+    name: string;
+    role: string;
+    img: string;
+    img2?: string;
+    description: string;
+  };
+}) {
+  // Estado para mobile/touch: abrir/cerrar con tap
+  const [open, setOpen] = useState(false);
+
+  const toggle = () => setOpen((v) => !v);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center text-center group">
+      <h2 className="text-2xl text-[#810010] font-semibold mb-2 font-[PT-Bold]">
+        {member.name}
+      </h2>
+
+      {/* Contenedor clickeable en mobile, hover en desktop */}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        onClick={toggle}
+        onKeyDown={onKeyDown}
+        className="relative overflow-hidden rounded-lg shadow-lg outline-none focus:ring-2 focus:ring-[#810010]/40"
+      >
+        <Image
+          src={member.img}
+          alt={member.name}
+          width={300}
+          height={450}
+          className={[
+            "rounded-lg object-cover transition-all duration-300",
+            // Efecto en desktop (hover) y en mobile (open)
+            open ? "scale-110 blur-sm" : "scale-100 blur-0",
+            "md:group-hover:scale-110 md:group-hover:blur-sm",
+          ].join(" ")}
+          draggable={false}
+          priority={false}
+        />
+
+        {/* Overlay con descripción: visible en hover (md+) o cuando open=true */}
+        <div
+          className={[
+            "absolute inset-0 bg-[#810100]/80 transition-opacity duration-300 flex items-center justify-center p-4",
+            open ? "opacity-100" : "opacity-0",
+            "md:opacity-0 md:group-hover:opacity-100",
+          ].join(" ")}
+        >
+          <p className="text-[#edebdd] font-[PT-Regular] text-sm">
+            {member.description}
+          </p>
+        </div>
+      </div>
+
+      {/* Roles debajo (con saltos en comas) */}
+      <p className="mt-3 text-[#810010] font-[PT-Regular] whitespace-pre-line">
+        {member.role.replace(/,\\s*/g, "\n")}
+      </p>
     </div>
   );
 }
