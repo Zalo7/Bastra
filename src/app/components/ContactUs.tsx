@@ -33,8 +33,8 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="min-h-screen bg- flex items-center justify-center py-12 px-4">
-      <div className="max-w-lg w-full bg-white p-8 rounded-2xl shadow-lg border border-[#810010]">
+    <section className="min-h-screen bg-[url('/images/fondo-para-el-sitio-web.jpg')] flex items-center justify-center py-12 px-4">
+      <div className="max-w-lg w-full bg-[#edebdd] p-8 rounded-2xl shadow-lg border border-[#810010]">
         <h2 className="text-3xl font-bold text-[#810010] mb-6 text-center">Contactanos!</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input

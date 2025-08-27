@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* Marquee */
+.marquee {
+  animation: marquee 24s linear infinite;
+}
+.group:hover .marquee {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Ocultar scrollbar del carrusel (si usás el bloque de Marketing) */
+.hidden-scrollbar::-webkit-scrollbar { display: none; }
+.hidden-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
 @font-face {
   font-family: 'Monotalic';
   src: url('/fonts/Monotalic-Regular.ttf') format('truetype');

@@ -5,48 +5,69 @@ import { useEffect, useState } from "react";
 /* ===========================
    Bloque: Proyecto a pantalla completa (full-bleed)
    =========================== */
-function ProjectFullBleed({
-  nombre,
-  descripcion,
-  secciones,
-}: {
-  nombre: string;
-  descripcion: string;
-  secciones: { src: string; alt?: string }[];
-}) {
-  return (
-    <div
-      style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)", width: "100vw" }}
-    >
-      {/* Texto arriba (izquierda) */}
-      <div className="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12 text-left">
-        <h2 className="text-2xl md:text-5xl font-[PT-Bold] text-[#810010] mb-3 md:mb-4">
-          {nombre}
-        </h2>
-        <p className="text-sm md:text-lg font-[PT-Regular] text-[#810010]/90 leading-relaxed">
-          {descripcion}
-        </p>
+   function ProjectFullBleed({
+    nombre,
+    descripcion,
+    secciones,
+  }: {
+    nombre: string;
+    descripcion: string;
+    secciones: { src: string; alt?: string }[];
+  }) {
+    return (
+      <div
+        style={{
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
+          width: "100vw",
+        }}
+      >
+        {/* Texto arriba (izquierda) */}
+        <div className="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12 text-left">
+          <h2 className="text-2xl md:text-5xl font-[PT-Bold] text-[#810010] mb-3 md:mb-4">
+            {nombre}
+          </h2>
+          <p className="text-sm md:text-lg font-[PT-Regular] text-[#810010]/90 leading-relaxed">
+            {descripcion}
+          </p>
+        </div>
+  
+        {/* Secciones de imágenes */}
+        {secciones.map((sec, i) => (
+          <section
+            key={i}
+            aria-label={`${nombre} – imagen ${i + 1}`}
+            className="
+              relative
+              w-screen
+              bg-[#edebdd]                    /* fondo neutro si la img no llena */
+              h-auto md:h-[70vh]              /* mobile: auto; desktop: 70vh */
+              overflow-hidden
+            "
+            style={{
+              marginLeft: "calc(50% - 50vw)",
+              marginRight: "calc(50% - 50vw)",
+            }}
+          >
+            <img
+              src={sec.src}
+              alt={sec.alt ?? `${nombre} – sección ${i + 1}`}
+              loading={i === 0 ? "eager" : "lazy"}
+              draggable={false}
+              className="
+                block
+                w-full
+                h-auto md:h-full
+                object-contain md:object-cover
+                object-center md:object-center
+                mx-auto
+              "
+            />
+          </section>
+        ))}
       </div>
-
-      {/* Secciones de imágenes (una por “pantalla”) */}
-      {secciones.map((sec, i) => (
-        <section
-          key={i}
-          className="relative"
-          style={{ width: "100vw", height: i === 0 ? "70vh" : "70vh" }}
-          aria-label={`${nombre} – imagen ${i + 1}`}
-        >
-          <img
-            src={sec.src}
-            alt={sec.alt ?? `${nombre} – sección ${i + 1}`}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-        </section>
-      ))}
-    </div>
-  );
-}
+    );
+  }
 
 /* ===========================
    Bloque: Cuadrícula 2×2 estática (sin hover)
@@ -288,6 +309,10 @@ const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/Lucia.JPG" },
   { src: "/images/Sofia/Effort.JPG" },
   { src: "/images/Sofia/Ale.JPG" },
+  { src: "/images/Sofia/Sayra-1.JPG" },
+  { src: "/images/Sofia/Sayra-3.JPG" },
+  { src: "/images/Sofia/Flores.JPG" },
+  { src: "/images/Sofia/Sayra-2.JPG" },
 ];
 
 /* ===========================
@@ -354,22 +379,50 @@ export default function Portfolio() {
         </div>
       )}
 
+    {/* Marketing */}
+{activeIndex === 1 && (
+  <section className="py-10 sm:py-14 bg-transparent">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-[PT-Bold] text-[#810010] mb-6 sm:mb-8">
+        Marketing – Reels
+      </h2>
+
+      {/* Mobile: scroll horizontal / Desktop: grid */}
+      <div className="md:grid md:grid-cols-4 md:gap-6 lg:gap-8 flex gap-4 overflow-x-auto snap-x snap-mandatory hidden-scrollbar -mx-2 md:mx-0">
+        {[
+          { src: "/videos/Darinka.mp4", poster: "/images/posters/mkt1.jpg" },
+          { src: "/videos/Darinka-2.mp4", poster: "/images/posters/mkt2.jpg" },
+          { src: "/videos/Darinka-3.mp4", poster: "/images/posters/mkt3.jpg" },
+          { src: "/videos/mkt4.mp4", poster: "/images/posters/mkt4.jpg" },
+        ].map((r, i) => (
+          <article
+            key={i}
+            className="snap-start md:snap-none shrink-0 basis-[75%] xs:basis-[66%] sm:basis-[55%] md:basis-auto"
+          >
+            <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden ring-1 ring-black/10 shadow-xl bg-black/5">
+              <video
+                src={r.src}
+                poster={r.poster}
+                controls
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
+              {/* Vignette */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/10" />
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+
+
       {/* Sofía – Fotografía & Audiovisual */}
       {activeIndex === 2 && <SofiaHeroAndStrip images={fotosSofia} />}
 
-      {/* estilos del marquee */}
-      <style jsx>{`
-        .marquee {
-          animation: marquee 24s linear infinite;
-        }
-        .group:hover .marquee {
-          animation-play-state: paused;
-        }
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </section>
   );
 }
