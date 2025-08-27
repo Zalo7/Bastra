@@ -8,28 +8,24 @@ const teamMembers = [
     name: "Gimena Yurcie",
     role: "Diseñadora Gráfica, Ilustradora",
     img: "/images/Gimena.png",
-    img2: "/images/Foto-Gime.png",
     description: `Como diseñadora gráfica e ilustradora en “Bastra”, transformo conceptos e ideas en piezas visuales únicas que transmiten identidad y emoción. Desde el diseño de logotipos hasta ilustraciones personalizadas, mi objetivo es que cada proyecto comunique de forma clara y creativa la esencia de tu marca.`,
   },
   {
     name: "Darinka Polich",
     role: "Content Creator, Community Manager",
-    img: "/images/Darinka.jpg",
-    img2: "/images/Darinka.JPG",
+    img: "/images/Darinka.JPG",
     description: `En Bastra Studio gestiono redes sociales y creo contenido que conecta. Diseño estrategias, produzco fotos, videos y campañas alineadas con la esencia de la marca. Cada publicación tiene un objetivo claro: atraer, inspirar, vender o fidelizar.`,
   },
   {
     name: "Gonzalo Lorenzon",
     role: "Desarrollador Web, Editor AudioVisual",
     img: "/images/Gonzalo.jpg",
-    img2: "/images/Foto-Gonza.png",
     description: `En “Bastra” combino mi experiencia como desarrollador web con mis habilidades en edición audiovisual para crear soluciones digitales funcionales y visualmente atractivas. Me encargo de construir sitios web que no solo funcionan bien, sino que también cuentan historias a través de imágenes, videos y experiencias interactivas.`,
   },
   {
     name: "Sofía Husty",
     role: "Fotógrafa, Productora Visual",
     img: "/images/Sofia.JPG",
-    img2: "/images/Sofia.JPG",
     description: `Como fotógrafa y productora audiovisual de “Bastra”, mi trabajo consiste no solo en materializar tus ideas y hacerlas realidad, sino en ayudarte a envisionarlas y crear una imagen clara de lo que identifica a tu marca, lo que la representa y diferencia de las demás.`,
   },
 ];
@@ -59,7 +55,6 @@ function TeamCard({
     name: string;
     role: string;
     img: string;
-    img2?: string;
     description: string;
   };
 }) {
