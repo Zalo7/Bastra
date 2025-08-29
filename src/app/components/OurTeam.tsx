@@ -7,13 +7,13 @@ const teamMembers = [
   {
     name: "Gimena Yurcie",
     role: "Diseñadora Gráfica, Ilustradora",
-    img: "/images/Gimena.png",
+    img: "/images/Gimena 2.jpg",
     description: `Como diseñadora gráfica e ilustradora en “Bastra”, transformo conceptos e ideas en piezas visuales únicas que transmiten identidad y emoción. Desde el diseño de logotipos hasta ilustraciones personalizadas, mi objetivo es que cada proyecto comunique de forma clara y creativa la esencia de tu marca.`,
   },
   {
     name: "Darinka Polich",
     role: "Content Creator, Community Manager",
-    img: "/images/Darinka.JPG",
+    img: "/images/Darinka.jpg",
     description: `En Bastra Studio gestiono redes sociales y creo contenido que conecta. Diseño estrategias, produzco fotos, videos y campañas alineadas con la esencia de la marca. Cada publicación tiene un objetivo claro: atraer, inspirar, vender o fidelizar.`,
   },
   {
@@ -38,7 +38,8 @@ export default function OurTeam() {
           Nuestro Equipo
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Grid con separación clara */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24">
           {teamMembers.map((member, index) => (
             <TeamCard key={index} member={member} />
           ))}
@@ -58,7 +59,6 @@ function TeamCard({
     description: string;
   };
 }) {
-  // Estado para mobile/touch: abrir/cerrar con tap
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen((v) => !v);
@@ -75,34 +75,36 @@ function TeamCard({
         {member.name}
       </h2>
 
-      {/* Contenedor clickeable en mobile, hover en desktop */}
+      {/* Tarjeta sin borde, separadas entre sí */}
       <div
         role="button"
         tabIndex={0}
         aria-expanded={open}
         onClick={toggle}
         onKeyDown={onKeyDown}
-        className="relative overflow-hidden rounded-lg shadow-lg outline-none focus:ring-2 focus:ring-[#810010]/40"
+        className="relative w-[min(82vw,300px)] sm:w-[min(46vw,300px)] lg:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-lg outline-none focus:ring-2 focus:ring-[#810010]/40"
       >
         <Image
           src={member.img}
           alt={member.name}
-          width={300}
-          height={450}
-          className={[
-            "rounded-lg object-cover transition-all duration-300",
-            // Efecto en desktop (hover) y en mobile (open)
-            open ? "scale-110 blur-sm" : "scale-100 blur-0",
-            "md:group-hover:scale-110 md:group-hover:blur-sm",
-          ].join(" ")}
+          fill
+          priority
+          quality={100}
+          sizes="(min-width:1280px) 320px, (min-width:768px) 46vw, 82vw"
           draggable={false}
-          priority={false}
+          className={[
+            "object-cover",
+            "object-[50%_18%]",
+            "transition-transform duration-300",
+            open ? "scale-105" : "scale-100",
+            "md:group-hover:scale-105",
+          ].join(" ")}
         />
-
-        {/* Overlay con descripción: visible en hover (md+) o cuando open=true */}
+        {/* Overlay descripción */}
         <div
           className={[
-            "absolute inset-0 bg-[#810100]/80 transition-opacity duration-300 flex items-center justify-center p-4",
+            "absolute inset-0 bg-[#751612]/80 transition-opacity duration-300",
+            "flex items-center justify-center p-4",
             open ? "opacity-100" : "opacity-0",
             "md:opacity-0 md:group-hover:opacity-100",
           ].join(" ")}
@@ -113,9 +115,9 @@ function TeamCard({
         </div>
       </div>
 
-      {/* Roles debajo (con saltos en comas) */}
+      {/* Roles debajo */}
       <p className="mt-3 text-[#810010] font-[PT-Regular] whitespace-pre-line">
-        {member.role.replace(/,\\s*/g, "\n")}
+        {member.role.replace(/,\s*/g, "\n")}
       </p>
     </div>
   );

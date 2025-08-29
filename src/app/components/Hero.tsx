@@ -25,13 +25,12 @@ export default function Hero() {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
-
     return () => clearInterval(timer);
   }, []);
 
   if (!timeLeft) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-[#810100] text-[#edebdd]">
+      <main className="min-h-screen flex items-center justify-center bg-[#751612] text-[#edebdd]">
         <p className="font-[Monotalic] text-4xl md:text-6xl text-center">
           The wait is over!
         </p>
@@ -40,45 +39,30 @@ export default function Hero() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#810100] relative overflow-hidden">
-      <CustomCursor />
+    <main className="relative min-h-screen w-full overflow-hidden bg-[#751612]">
+      {/* Fondo por dispositivo */}
+      <img
+        src="/images/Fondo-Hero.jpg"
+        alt="Hero"
+        className="hidden md:block w-full h-full object-cover"
+      />
+      <img
+        src="/images/opción-vertical.jpg"
+        alt="Hero"
+        className="block md:hidden w-full h-full object-cover"
+      />
 
-      {/* Fondo con puntitos cálidos animados */}
-      <div className="absolute inset-0 sparkle-background"></div>
-
-      <div className="relative z-10 text-[#edebdd] px-6 text-center">
-        <h1 className="font-[Zodiak-Regular] text-2xl md:text-4xl mb-6">
-        Todo Bastra <br /> en un solo sitio.
-        </h1>
-
-        <div className="flex justify-center gap-4 md:gap-8 font-[Monotalic]">
-          <div className="flex flex-col items-center">
-            <span className="text-5xl md:text-7xl text-[#edebdd]">{timeLeft.days}</span>
-            <span className="text-sm md:text-lg font-[Zodiak-LightItalic]">Días</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-5xl md:text-7xl text-[#edebdd]">{timeLeft.hours}</span>
-            <span className="text-sm md:text-lg font-[Zodiak-LightItalic]">Horas</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-5xl md:text-7xl text-[#edebdd]">{timeLeft.minutes}</span>
-            <span className="text-sm md:text-lg font-[Zodiak-LightItalic]">Minutos</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-5xl md:text-7xl text-[#edebdd]">{timeLeft.seconds}</span>
-            <span className="text-sm md:text-lg font-[Zodiak-LightItalic]">Segundos</span>
-          </div>
-        </div>
-      </div>
+      {/* Partículas en #751612 */}
+      <div className="pointer-events-none absolute inset-0 sparkle-background" />
 
       <style jsx>{`
-        /* Puntitos/partículas cálidas moviéndose en diagonal */
+        /* Puntitos/partículas moviéndose en diagonal - color #751612 */
         .sparkle-background {
           background-image:
-            radial-gradient(circle at 20% 30%, rgba(237, 235, 221, 0.25) 1.5px, transparent 2px), /* crema */
-            radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.18) 1.2px, transparent 2px), /* blanco */
-            radial-gradient(circle at 40% 80%, rgba(129, 1, 0, 0.25) 1.4px, transparent 2px),     /* bordó */
-            radial-gradient(circle at 85% 25%, rgba(242, 181, 68, 0.25) 1.2px, transparent 2px); /* dorado */
+            radial-gradient(circle at 20% 30%, rgb(117 22 18 / 0.42) 1.5px, transparent 2px),
+            radial-gradient(circle at 70% 60%, rgb(117 22 18 / 0.30) 1.2px, transparent 2px),
+            radial-gradient(circle at 40% 80%, rgb(117 22 18 / 0.36) 1.4px, transparent 2px),
+            radial-gradient(circle at 85% 25%, rgb(117 22 18 / 0.26) 1.2px, transparent 2px);
           background-size: 160px 160px, 220px 220px, 200px 200px, 260px 260px;
           animation: drift 16s linear infinite, flicker 6s ease-in-out infinite;
           opacity: 0.6;
