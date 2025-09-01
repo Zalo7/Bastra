@@ -34,19 +34,28 @@ export default function ReelSection() {
               {/* Vignette */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#810010]/20 via-transparent to-[#810010]/20" />
 
-              {/* Texto siempre dentro del marco */}
+              {/* Servicios apilados con animación escalonada e infinita */}
               <div className="absolute inset-0 grid place-items-center px-4">
-                <p
+                <ul
                   className="
-                    mx-auto text-center uppercase text-[#edebdd]
-                    text-[clamp(12px,3.8vw,16px)] sm:text-[clamp(13px,2.6vw,18px)] md:text-base
-                    tracking-[0.08em] sm:tracking-[0.12em] md:tracking-[0.35em]
-                    leading-[1.15] max-w-[86%] [text-wrap:balance] break-words
-                    drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]
+                    reel-stagger
+                    text-[#edebdd] uppercase text-center
+                    text-[clamp(12px,3.6vw,16px)] sm:text-[clamp(13px,2.6vw,18px)] md:text-base
+                    tracking-[0.06em] sm:tracking-[0.1em] md:tracking-[0.25em]
+                    leading-tight space-y-1.5 sm:space-y-2
+                    drop-shadow-[0_1px_6px_rgba(0,0,0,0.85)]
+                    max-w-[86%] [text-wrap:balance]
                   "
+                  aria-hidden="false"
                 >
-                  Creamos desde la base, ejecutamos con estrategia
-                </p>
+                  <li>Desarrollo Web</li>
+                  <li>Branding</li>
+                  <li>Contenido UGC</li>
+                  <li>Fotografía Profesional</li>
+                  <li>Producciones Audiovisuales</li>
+                  <li>Community Manager</li>
+                  <li>Estrategias</li>
+                </ul>
               </div>
             </div>
           </div>

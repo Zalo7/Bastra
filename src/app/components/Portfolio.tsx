@@ -5,69 +5,69 @@ import { useEffect, useState } from "react";
 /* ===========================
    Bloque: Proyecto a pantalla completa (full-bleed)
    =========================== */
-   function ProjectFullBleed({
-    nombre,
-    descripcion,
-    secciones,
-  }: {
-    nombre: string;
-    descripcion: string;
-    secciones: { src: string; alt?: string }[];
-  }) {
-    return (
-      <div
-        style={{
-          marginLeft: "calc(50% - 50vw)",
-          marginRight: "calc(50% - 50vw)",
-          width: "100vw",
-        }}
-      >
-        {/* Texto arriba (izquierda) */}
-        <div className="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12 text-left">
-          <h2 className="text-2xl md:text-5xl font-[PT-Bold] text-[#810010] mb-3 md:mb-4">
-            {nombre}
-          </h2>
-          <p className="text-sm md:text-lg font-[PT-Regular] text-[#810010]/90 leading-relaxed">
-            {descripcion}
-          </p>
-        </div>
-  
-        {/* Secciones de imágenes */}
-        {secciones.map((sec, i) => (
-          <section
-            key={i}
-            aria-label={`${nombre} – imagen ${i + 1}`}
-            className="
-              relative
-              w-screen
-              bg-[#edebdd]                    /* fondo neutro si la img no llena */
-              h-auto md:h-[70vh]              /* mobile: auto; desktop: 70vh */
-              overflow-hidden
-            "
-            style={{
-              marginLeft: "calc(50% - 50vw)",
-              marginRight: "calc(50% - 50vw)",
-            }}
-          >
-            <img
-              src={sec.src}
-              alt={sec.alt ?? `${nombre} – sección ${i + 1}`}
-              loading={i === 0 ? "eager" : "lazy"}
-              draggable={false}
-              className="
-                block
-                w-full
-                h-auto md:h-full
-                object-contain md:object-cover
-                object-center md:object-center
-                mx-auto
-              "
-            />
-          </section>
-        ))}
+function ProjectFullBleed({
+  nombre,
+  descripcion,
+  secciones,
+}: {
+  nombre: string;
+  descripcion: string;
+  secciones: { src: string; alt?: string }[];
+}) {
+  return (
+    <div
+      style={{
+        marginLeft: "calc(50% - 50vw)",
+        marginRight: "calc(50% - 50vw)",
+        width: "100vw",
+      }}
+    >
+      {/* Texto arriba (izquierda) */}
+      <div className="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12 text-left">
+        <h2 className="text-2xl md:text-5xl font-[PT-Bold] text-[#810010] mb-3 md:mb-4">
+          {nombre}
+        </h2>
+        <p className="text-sm md:text-lg font-[PT-Regular] text-[#810010]/90 leading-relaxed">
+          {descripcion}
+        </p>
       </div>
-    );
-  }
+
+      {/* Secciones de imágenes */}
+      {secciones.map((sec, i) => (
+        <section
+          key={i}
+          aria-label={`${nombre} – imagen ${i + 1}`}
+          className="
+            relative
+            w-screen
+            bg-[#edebdd]                    /* fondo neutro si la img no llena */
+            h-auto md:h-[70vh]              /* mobile: auto; desktop: 70vh */
+            overflow-hidden
+          "
+          style={{
+            marginLeft: "calc(50% - 50vw)",
+            marginRight: "calc(50% - 50vw)",
+          }}
+        >
+          <img
+            src={sec.src}
+            alt={sec.alt ?? `${nombre} – sección ${i + 1}`}
+            loading={i === 0 ? "eager" : "lazy"}
+            draggable={false}
+            className="
+              block
+              w-full
+              h-auto md:h-full
+              object-contain md:object-cover
+              object-center md:object-center
+              mx-auto
+            "
+          />
+        </section>
+      ))}
+    </div>
+  );
+}
 
 /* ===========================
    Bloque: Cuadrícula 2×2 estática (sin hover)
@@ -111,122 +111,121 @@ function FourUpGrid({
 /* ===========================
    Sofía – Hero full-screen + strip horizontal 4-up (con separadores)
    =========================== */
-   function SofiaHeroAndStrip({
-    images,
-  }: {
-    images: { src: string; alt?: string }[];
-    title?: string;
-  }) {
-    if (!images.length) return null;
-    const [hero, ...rest] = images;
-  
-    // duplicamos para loop infinito suave
-    const stripImages = [...rest, ...rest];
-  
-    return (
-      <section className="bg-[#edebdd]">
-        {/* HERO full-screen (primera foto) */}
+function SofiaHeroAndStrip({
+  images,
+}: {
+  images: { src: string; alt?: string }[];
+  title?: string;
+}) {
+  if (!images.length) return null;
+  const [hero, ...rest] = images;
+
+  // duplicamos para loop infinito suave
+  const stripImages = [...rest, ...rest];
+
+  return (
+    <section className="bg-[#edebdd]">
+      {/* HERO full-screen (primera foto) */}
+      <div
+        className="relative"
+        style={{
+          width: "100vw",
+          height: "75vh",
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
+        }}
+      >
+        <img
+          src={hero.src}
+          alt={hero.alt ?? "Foto destacada"}
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+        />
+        {/* Viñeta sutil para dar profundidad */}
         <div
-          className="relative"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            width: "100vw",
-            height: "75vh",
-            marginLeft: "calc(50% - 50vw)",
-            marginRight: "calc(50% - 50vw)",
+            background:
+              "radial-gradient(120% 80% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 100%)",
           }}
-        >
-          <img
-            src={hero.src}
-            alt={hero.alt ?? "Foto destacada"}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="eager"
-          />
-          {/* Viñeta sutil para dar profundidad */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(120% 80% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 100%)",
-            }}
-          />
-        </div>
-  
-        {/* STRIP horizontal auto-scroll (2 mob / 3 tablet / 4 desktop) */}
-        <div
-          className="relative overflow-hidden group"
-          style={{
-            width: "100vw",
-            marginLeft: "calc(50% - 50vw)",
-            marginRight: "calc(50% - 50vw)",
-          }}
-        >
-          {/* Altura del carrusel */}
-          <div className="relative h-[40vh] sm:h-[44vh] md:h-[46vh] lg:h-[48vh] flex items-stretch">
-            <div className="sofia-strip flex">
-              {stripImages.map((img, i) => (
-                <div
-                  key={`${img.src}-${i}`}
-                  className="flex-none h-full"
-                  style={{
-                    // anchuras por defecto para mobile; se sobre-escriben en media queries
-                    width: "50vw",
-                    // línea de 2px entre cada foto
-                    borderRight: "2px solid #edebdd",
-                  }}
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt ?? `Foto ${i + 1}`}
-                    className="h-full w-full object-cover block"
-                    loading="lazy"
-                    draggable={false}
-                  />
-                </div>
-              ))}
-            </div>
+        />
+      </div>
+
+      {/* STRIP horizontal auto-scroll (2 mob / 3 tablet / 4 desktop) */}
+      <div
+        className="relative overflow-hidden group"
+        style={{
+          width: "100vw",
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
+        }}
+      >
+        {/* Altura del carrusel */}
+        <div className="relative h-[40vh] sm:h-[44vh] md:h-[46vh] lg:h-[48vh] flex items-stretch">
+          <div className="sofia-strip flex">
+            {stripImages.map((img, i) => (
+              <div
+                key={`${img.src}-${i}`}
+                className="flex-none h-full"
+                style={{
+                  // anchuras por defecto para mobile; se sobre-escriben en media queries
+                  width: "50vw",
+                  // línea de 2px entre cada foto
+                  borderRight: "2px solid #edebdd",
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt ?? `Foto ${i + 1}`}
+                  className="h-full w-full object-cover block"
+                  loading="lazy"
+                  draggable={false}
+                />
+              </div>
+            ))}
           </div>
         </div>
-  
-        <style jsx>{`
-          /* Carrusel continuo */
-          .sofia-strip {
-            width: max-content;
-            will-change: transform;
-            animation: sofia-slide-left 42s linear infinite;
+      </div>
+
+      <style jsx>{`
+        /* Carrusel continuo */
+        .sofia-strip {
+          width: max-content;
+          will-change: transform;
+          animation: sofia-slide-left 42s linear infinite;
+        }
+        .group:hover .sofia-strip {
+          animation-play-state: paused;
+        }
+        @keyframes sofia-slide-left {
+          0% {
+            transform: translateX(0);
           }
-          .group:hover .sofia-strip {
-            animation-play-state: paused;
+          100% {
+            transform: translateX(-50%);
           }
-          @keyframes sofia-slide-left {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
+        }
+
+        /* Mostrar 3 en tablet, 4 en desktop, 5 en XL */
+        @media (min-width: 640px) {
+          .sofia-strip > div {
+            width: 33.3333vw !important;
           }
-  
-          /* Mostrar 3 en tablet, 4 en desktop, 5 en XL */
-          @media (min-width: 640px) {
-            .sofia-strip > div {
-              width: 33.3333vw !important;
-            }
+        }
+        @media (min-width: 1024px) {
+          .sofia-strip > div {
+            width: 25vw !important; /* 4 visibles */
           }
-          @media (min-width: 1024px) {
-            .sofia-strip > div {
-              width: 25vw !important; /* 4 visibles */
-            }
+        }
+        @media (min-width: 1440px) {
+          .sofia-strip > div {
+            width: 20vw !important; /* 5 visibles si hay espacio */
           }
-          @media (min-width: 1440px) {
-            .sofia-strip > div {
-              width: 20vw !important; /* 5 visibles si hay espacio */
-            }
-          }
-        `}</style>
-      </section>
-    );
-  }
-  
+        }
+      `}</style>
+    </section>
+  );
+}
 
 /* ===========================
    Data: categorías y proyectos (Gimena + Sofía)
@@ -300,7 +299,7 @@ const proyectosDiseno = [
   },
 ];
 
-/* Sofía – 7 fotos: 1 hero + 6 para strip */
+/* Sofía – 7+ fotos: 1 hero + strip */
 const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/Mirrorball.JPG", alt: "Hero Sofía" }, // HERO
   { src: "/images/Sofia/HappyBday.JPG" },
@@ -380,61 +379,77 @@ export default function Portfolio() {
       )}
 
       {/* Marketing */}
-{/* Marketing */}
-{activeIndex === 1 && (
-  <section className="py-10 sm:py-14 bg-transparent">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-[PT-Bold] text-[#810010] mb-6 sm:mb-8">
-        Marketing – Reels
-      </h2>
+      {activeIndex === 1 && (
+        <section className="py-10 sm:py-14 bg-transparent">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-[PT-Bold] text-[#810010] mb-6 sm:mb-8">
+              Marketing – Reels
+            </h2>
 
-      {/* Mobile: scroll horizontal / Desktop: grid */}
-      <div className="md:grid md:grid-cols-4 md:gap-6 lg:gap-8 flex gap-4 overflow-x-auto snap-x snap-mandatory hidden-scrollbar -mx-2 md:mx-0">
-        {[
-          { src: "/videos/Darinka.mp4", poster: "/videos/Darinka.mp4" },
-          { src: "/videos/Darinka-2.mp4", poster: "/videos/Darinka-2.mp4" },
-          { src: "/videos/Darinka-3.mp4", poster: "/videos/Darinka-3.mp4" },
-          { src: "/videos/mkt4.mp4", poster: "/images/posters/mkt4.jpg" },
-        ].map((r, i) => (
-          <article
-            key={i}
-            className="snap-start md:snap-none shrink-0 basis-[75%] xs:basis-[66%] sm:basis-[55%] md:basis-auto"
-          >
-            <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden ring-1 ring-black/10 shadow-xl bg-black/5">
-              <video
-                src={r.src}
-                poster={r.poster}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="metadata"
-                className="h-full w-full object-cover"
-              />
-              {/* Vignette */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/10" />
+            {/* Mobile: 1 col; Desktop: 4 col */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-4 lg:gap-8">
+              {[
+                { src: "/videos/Darinka.mp4", cover: "/images/posters/Darinka.jpg" },
+                { src: "/videos/Darinka-2.mp4", cover: "/images/posters/Darinka-2.jpg" },
+                { src: "/videos/Darinka-3.mp4", cover: "/images/posters/Darinka-3.jpg" },
+                { src: "/videos/Isla-video.mp4", cover: "/images/posters/Isla-video.jpg" },
+              ].map((r, i) => (
+                <ReelCard key={i} src={r.src} cover={r.cover} />
+              ))}
             </div>
-          </article>
-        ))}
-      </div>
-    </div>
-
-    <style jsx global>{`
-      .hidden-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .hidden-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-    `}</style>
-  </section>
-)}
-
+          </div>
+        </section>
+      )}
 
       {/* Sofía – Fotografía & Audiovisual */}
       {activeIndex === 2 && <SofiaHeroAndStrip images={fotosSofia} />}
-
     </section>
+  );
+}
+
+/* ===========
+   ReelCard
+   =========== */
+function ReelCard({ src, cover }: { src: string; cover?: string }) {
+  const [ready, setReady] = useState(false);
+
+  return (
+    <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-xl ring-1 ring-[#edebdd]/20 bg-black/5">
+      {/* Video: autoplay, muted, loop */}
+      <video
+        src={src}
+        muted
+        autoPlay
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={() => setReady(true)}
+        className="h-full w-full object-cover"
+        aria-label="Reel de marketing"
+      />
+
+      {/* Vignette sutil */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10" />
+
+      {/* Cover + loader hasta que esté listo */}
+      <div
+        className={[
+          "absolute inset-0 transition-opacity duration-500",
+          ready ? "opacity-0 pointer-events-none" : "opacity-100",
+        ].join(" ")}
+      >
+        {cover ? (
+          <img src={cover} alt="" className="h-full w-full object-cover" />
+        ) : (
+          <div className="h-full w-full bg-[#EDEBDD]" />
+        )}
+
+        {/* Spinner encima del cover */}
+        <div className="absolute inset-0 grid place-items-center bg-black/10">
+          <span className="inline-block h-5 w-5 rounded-full border-2 border-[#edebdd]/40 border-t-[#edebdd] animate-spin" />
+          <span className="sr-only">Cargando…</span>
+        </div>
+      </div>
+    </div>
   );
 }
