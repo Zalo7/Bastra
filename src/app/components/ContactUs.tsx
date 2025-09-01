@@ -32,7 +32,7 @@ export default function ContactUs() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/contactus", {
+      const res = await fetch("/api/contact", { // ⬅️ cambio clave
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
