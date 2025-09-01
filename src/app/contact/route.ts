@@ -1,4 +1,3 @@
-// src/app/api/contact/route.ts
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -9,13 +8,16 @@ type Payload = { name: string; phone?: string; email: string; message: string; c
 function esc(s: string) {
   return String(s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as Payload;
-    if (body.company) return NextResponse.json({ ok: true }); // honeypot
+
+    // Honeypot
+    if (body.company) return NextResponse.json({ ok: true });
 
     const { name, phone = "", email, message } = body;
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "");
@@ -27,6 +29,7 @@ export async function POST(req: Request) {
     const FROM = process.env.CONTACT_FROM ?? "noreply@bastrastudio.com";
     const KEY = process.env.RESEND_API_KEY;
 
+    // Si no hay API key, no falles: acepta el mensaje
     if (!KEY) {
       console.log("Contacto recibido (sin Resend):", body);
       return NextResponse.json({ ok: true });
@@ -42,20 +45,24 @@ export async function POST(req: Request) {
       <p><b>Mensaje:</b><br/>${esc(message).replace(/\n/g,"<br/>")}</p>
     `;
 
+    // 📩 a Bastra
     await resend.emails.send({
       from: `Bastra Website <${FROM}>`,
       to: [TO],
-      reply_to: email,
+      replyTo: email,            // ← FIX aquí
       subject: `Nuevo contacto: ${name}`,
       html,
     });
 
+    // Auto-reply (opcional)
     if (process.env.SEND_AUTOREPLY !== "false") {
       await resend.emails.send({
         from: `Bastra Studio <${FROM}>`,
         to: [email],
         subject: "¡Gracias por contactarnos!",
-        html: `<p>Hola ${esc(name)},</p><p>Recibimos tu mensaje y te responderemos a la brevedad.</p><p>— Equipo Bastra</p>`,
+        html: `<p>Hola ${esc(name)},</p>
+               <p>Recibimos tu mensaje y te responderemos a la brevedad.</p>
+               <p>— Equipo Bastra</p>`,
       });
     }
 
