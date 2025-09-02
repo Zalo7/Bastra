@@ -305,13 +305,15 @@ const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/HappyBday.JPG" },
   { src: "/images/Sofia/Party15.JPG" },
   { src: "/images/Sofia/Cake.JPG" },
-  { src: "/images/Sofia/Lucia.JPG" },
-  { src: "/images/Sofia/Effort.JPG" },
-  { src: "/images/Sofia/Ale.JPG" },
-  { src: "/images/Sofia/Sayra-1.JPG" },
+  { src: "/images/Sofia/Effort.jpg" },
+  { src: "/images/Sofia/Ale.jpg" },
+  { src: "/images/Sofia/Lucia.jpg" },
   { src: "/images/Sofia/Sayra-3.JPG" },
   { src: "/images/Sofia/Flores.JPG" },
-  { src: "/images/Sofia/Sayra-2.JPG" },
+  { src: "/images/Sofia/Sayra-1.JPG" },
+  { src: "/images/Sofia/Ludmi.jpg" },
+  { src: "/images/Sofia/Ludmi-1.jpg" },
+  { src: "/images/Sofia/Ludmi-2.jpg" },
 ];
 
 /* ===========================

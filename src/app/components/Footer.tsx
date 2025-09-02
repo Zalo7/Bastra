@@ -32,19 +32,16 @@ export default function BastraFooter() {
           <nav aria-label="Redes sociales" className="md:justify-self-center">
             <ul className="space-y-3 text-lg font-[Zodiak-Regular]">
               <li>
-                <FooterLink href="https://instagram.com" label="Instagram" />
+                <FooterLink href="https://www.instagram.com/bastrastudio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" label="Instagram" />
               </li>
               <li>
-                <FooterLink href="https://facebook.com" label="Facebook" />
+                <FooterLink href="https://www.facebook.com/share/1A9BFVb4cB/?mibextid=wwXIfr" label="Facebook" />
               </li>
               <li>
-                <FooterLink href="https://behance.net" label="Behance" />
+                <FooterLink href="https://www.behance.net/yurciegimena/projects" label="Behance" />
               </li>
               <li>
-                <FooterLink href="https://tiktok.com" label="TikTok" />
-              </li>
-              <li>
-                <FooterLink href="https://pinterest.com" label="Pinterest" />
+                <FooterLink href="https://www.tiktok.com/@bastrastudio?_t=ZS-8zNeomjDI3T&_r=1" label="TikTok" />
               </li>
             </ul>
           </nav>
