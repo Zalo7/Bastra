@@ -27,8 +27,7 @@ const teamMembers = [
     role: "Fotógrafa, Productora Visual",
     img: "/images/Sofia.JPG",
     description: `Como fotógrafa y productora audiovisual de “Bastra”, mi trabajo consiste no solo en materializar tus ideas y hacerlas realidad, sino en ayudarte a envisionarlas y crear una imagen clara de lo que identifica a tu marca, lo que la representa y diferencia de las demás.`,
-  },
-];
+  }, ];
 
 export default function OurTeam() {
   return (
