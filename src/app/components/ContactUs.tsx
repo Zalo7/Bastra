@@ -107,7 +107,7 @@ export default function ContactUs() {
   const errBorder = "border-red-600 focus:ring-red-600";
 
   return (
-    <section className="min-h-screen bg-[url('/images/fondo-para-el-sitio-web.jpg')] bg-cover bg-center flex items-center justify-center py-12 px-4">
+    <section className="min-h-screen bg-[url('/images/Fondo-para-el-sitio-web.jpg')] bg-cover bg-center flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-lg rounded-2xl border border-[#810010] bg-[#edebdd] p-8 shadow-lg">
         <h2 className="mb-6 text-center font-[PT-Bold] text-3xl text-[#810010]">
           ¡Contactanos!
