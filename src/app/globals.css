@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 /* Marquee */
+
 .marquee {
   animation: marquee 24s linear infinite;
 }

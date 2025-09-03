@@ -5,7 +5,7 @@ import CustomCursor from "./CustomCursor";
 
 export default function Hero() {
   return (
-<main className="relative min-h-screen w-full overflow-hidden bg-[#751612]">
+<main className="relative min-h-screen w-full overflow-hidden bg-[#810100]">
 <img
   src="/images/Fondo-Hero.jpg"
   alt="Hero"

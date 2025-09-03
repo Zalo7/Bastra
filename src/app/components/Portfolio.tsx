@@ -38,11 +38,8 @@ function ProjectFullBleed({
           key={i}
           aria-label={`${nombre} – imagen ${i + 1}`}
           className="
-            relative
-            w-screen
-            bg-[#edebdd]
-            h-auto md:h-[70vh]
-            overflow-hidden
+            relative w-screen bg-[#edebdd]
+            h-auto md:h-[70vh] overflow-hidden
           "
           style={{
             marginLeft: "calc(50% - 50vw)",
@@ -54,14 +51,7 @@ function ProjectFullBleed({
             alt={sec.alt ?? `${nombre} – sección ${i + 1}`}
             loading={i === 0 ? "eager" : "lazy"}
             draggable={false}
-            className="
-              block
-              w-full
-              h-auto md:h-full
-              object-contain md:object-cover
-              object-center md:object-center
-              mx-auto
-            "
+            className="block w-full h-auto md:h-full object-contain md:object-cover object-center mx-auto"
           />
         </section>
       ))}
@@ -70,7 +60,7 @@ function ProjectFullBleed({
 }
 
 /* ===========================
-   Bloque: Cuadrícula 2×2 estática (sin hover)
+   Bloque: Cuadrícula 2×2
    =========================== */
 function FourUpGrid({
   images,
@@ -91,7 +81,9 @@ function FourUpGrid({
           {slots.slice(0, 4).map((img, i) => (
             <div
               key={i}
-              className={`relative ${square ? "aspect-square" : "aspect-[4/3]"} overflow-hidden rounded-xl`}
+              className={`relative ${
+                square ? "aspect-square" : "aspect-[4/3]"
+              } overflow-hidden rounded-xl`}
             >
               <img
                 src={img.src}
@@ -109,23 +101,20 @@ function FourUpGrid({
 }
 
 /* ===========================
-   Sofía – Hero full-screen + strip horizontal 4-up (con separadores)
+   Sofía – Hero + strip auto-scroll
    =========================== */
 function SofiaHeroAndStrip({
   images,
 }: {
   images: { src: string; alt?: string }[];
-  title?: string;
 }) {
   if (!images.length) return null;
   const [hero, ...rest] = images;
-
-  // duplicamos para loop infinito suave
   const stripImages = [...rest, ...rest];
 
   return (
     <section className="bg-[#edebdd]">
-      {/* HERO full-screen (primera foto) */}
+      {/* HERO */}
       <div
         className="relative"
         style={{
@@ -141,7 +130,6 @@ function SofiaHeroAndStrip({
           className="absolute inset-0 h-full w-full object-cover"
           loading="eager"
         />
-        {/* Viñeta sutil para dar profundidad */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -151,7 +139,7 @@ function SofiaHeroAndStrip({
         />
       </div>
 
-      {/* STRIP horizontal auto-scroll (2 mob / 3 tablet / 4 desktop) */}
+      {/* STRIP */}
       <div
         className="relative overflow-hidden group"
         style={{
@@ -160,7 +148,6 @@ function SofiaHeroAndStrip({
           marginRight: "calc(50% - 50vw)",
         }}
       >
-        {/* Altura del carrusel */}
         <div className="relative h-[40vh] sm:h-[44vh] md:h-[46vh] lg:h-[48vh] flex items-stretch">
           <div className="sofia-strip flex">
             {stripImages.map((img, i) => (
@@ -185,11 +172,10 @@ function SofiaHeroAndStrip({
         </div>
       </div>
 
-      {/* Espaciador crema para que no se pegue al footer */}
-      <div className="h-12 sm:h-16 md:h-20 bg-[#edebdd]" />
+      {/* Espaciador crema antes del footer */}
+      <div className="h-[8vh] w-full bg-[#edebdd]" />
 
       <style jsx>{`
-        /* Carrusel continuo */
         .sofia-strip {
           width: max-content;
           will-change: transform;
@@ -206,8 +192,6 @@ function SofiaHeroAndStrip({
             transform: translateX(-50%);
           }
         }
-
-        /* Mostrar 3 en tablet, 4 en desktop, 5 en XL */
         @media (min-width: 640px) {
           .sofia-strip > div {
             width: 33.3333vw !important;
@@ -215,12 +199,12 @@ function SofiaHeroAndStrip({
         }
         @media (min-width: 1024px) {
           .sofia-strip > div {
-            width: 25vw !important; /* 4 visibles */
+            width: 25vw !important;
           }
         }
         @media (min-width: 1440px) {
           .sofia-strip > div {
-            width: 20vw !important; /* 5 visibles si hay espacio */
+            width: 20vw !important;
           }
         }
       `}</style>
@@ -229,83 +213,218 @@ function SofiaHeroAndStrip({
 }
 
 /* ===========================
-   Sección Desarrollo Web (en la misma página)
+   Desarrollo Web – 2 pantallas (Proyectos + Experiencia)
    =========================== */
-function WebDevBlock({ url, repoUrl }: { url: string; repoUrl?: string }) {
+type Project = {
+  title: string;
+  blurb?: string;
+  live?: string;
+  repo?: string;
+  tags?: string[];
+};
+type Experience = {
+  period: string;
+  title: string;
+  org?: string;
+  details?: string;
+};
+
+const WEB_PROJECTS: Project[] = [
+  {
+    title: "Bastra Website",
+    blurb: "Agencia Creativa desarrollada con Next.js 14 + Tailwind.",
+    live: "https://bastrastudio.com",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind", "Figma", "Redux"],
+  },
+  {
+    title: "Tienda Nube",
+    blurb: "Patry Caballeros Sports (En Desarrollo)",
+    tags: ["Setup", "Mantenimiento", "Carga de productos", "Automatizaciones", "Pasarela de pagos"],
+  },
+  {
+    title: "Portfolio Full Stack",
+    blurb: "Portofolio como Desarrollador con Stack de tecnologías",
+    tags: ["Tailwind", "Javascript", "React", "Redux"],
+    live: "https://lnkd.in/dC2UZ7zU",
+  },
+  {
+    title: "Github Profile",
+    blurb: "Proyectos, código y conocimientos.",
+    live: "hhttps://github.com/Zalo7",
+  },
+  {
+    title: "LinkedIn",
+    blurb: "Posteos, experiencia y tecnologías.",
+    live: "https://www.linkedin.com/in/gonzalolorenzonfullstack/",
+  
+  },
+  {
+    title: "Chandran Hughes Architects",
+    blurb: "Animaciones, y diseño visual moderno web para estudio de arquitectura.",
+    live: "https://chandran-hughes.com",
+    tags: ["Framer", "Cardd", "Figma"],
+  },
+];
+
+const WEB_EXPERIENCE: Experience[] = [
+  {
+    period: "2021 — 2022",
+    title: "Full Stack Web Developer",
+    org: "Soy Henry",
+    details:
+      "Curso de programación informática, aplicaciones específicas",
+  },
+  {
+    period: "2022",
+    title: "Front End Developer",
+    org: "Bglobal Solutions",
+    details:
+      "React | Tailwind | Creatio | Plataforma Low Code | CRM | Automatización de Procesos.",
+  },
+  {
+    period: "2023-2025",
+    title: "Full Stack Developer",
+    org: "Devlights",
+    details:
+      "Emulación móvil, NextJS, Tailwind, IOS & Android, Typescript.",
+  },
+  {
+    period: "2025",
+    title: "Front End Developer",
+    org: "Freelance",
+    details:
+      "Desarrollo web con herramientas con Cardd y Framer",
+  },
+  {
+    period: "Ahora",
+    title: "Full Stack Developer & Editor Audiovisual ",
+    org: "Bastra",
+    details:
+      "Encargado del Desarrollo Web y Edición Audiovisual en Bastra Studio",
+  },
+];
+
+function WebDevScreens({
+  projects = WEB_PROJECTS,
+  experience = WEB_EXPERIENCE,
+}: {
+  projects?: Project[];
+  experience?: Experience[];
+}) {
   return (
-    <section className="bg-[#edebdd] py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <header className="mb-8 md:mb-10">
-          <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810010]">Desarrollo Web</h2>
-          <p className="mt-3 text-[#810010]/90 max-w-3xl font-[PT-Regular]">
-            Front End Developer con foco en interfaces limpias, performance y consistencia visual.
-            Trabajo con <strong>Next.js 14</strong>, <strong>React</strong>, <strong>TypeScript</strong> y{" "}
-            <strong>Tailwind CSS</strong>.
-          </p>
-        </header>
+    <>
+      {/* P1: PROYECTOS */}
+      <section
+        className="min-h-screen bg-[#edebdd]"
+        style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
+      >
+        <div className="max-w-7xl mx-auto h-full px-6 py-12 md:py-16 flex flex-col">
+          <header className="mb-8 md:mb-10">
+            <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810100]">Proyectos & Perfiles</h2>
+            <p className="mt-3 text-[#810100]/90 max-w-3xl font-[PT-Regular]">
+              Trabajos realizado y proyectos
+            </p>
+          </header>
 
-        {/* Badges de stack */}
-        <ul className="flex flex-wrap gap-2 mb-8">
-          {["Next.js 14", "React", "TypeScript", "Tailwind CSS", "React Native", "Node.js"].map(
-            (t) => (
-              <li
-                key={t}
-                className="rounded-full border border-[#810010]/25 bg-white/70 px-3 py-1 text-sm text-[#810010]"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-auto mb-auto">
+            {projects.map((p, i) => (
+              <article
+                key={i}
+                className="rounded-2xl border-2 border-[#810010]/25 bg-[#810100] p-5 shadow-sm hover:shadow-md transition-shadow"
               >
-                {t}
-              </li>
-            )
-          )}
-        </ul>
+                <h3 className="text-xl font-[PT-Bold] text-[#edebdd]">{p.title}</h3>
+                {p.blurb && (
+                  <p className="mt-2 text-sm text-[#edebdd]/90 font-[PT-Regular]">{p.blurb}</p>
+                )}
 
-        {/* Bullets de experiencia */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5">
-            <p className="text-[#810010]">
-              ● Colaboré con diseño y desarrollo para construir interfaces <strong>responsive</strong>{" "}
-              con Next.js 14, React, TypeScript y Tailwind CSS, aportando ideas para mejorar la{" "}
-              <strong>UX</strong> y la consistencia visual.
-            </p>
-          </div>
-          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5">
-            <p className="text-[#810010]">
-              ● Participé en una app móvil con <strong>React Native</strong>, integrando back-end en{" "}
-              <strong>Node.js</strong> y adaptando el producto para <strong>iOS</strong> y{" "}
-              <strong>Android</strong>.
-            </p>
-          </div>
-          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5 md:col-span-2">
-            <p className="text-[#810010]">
-              ● Experiencia en <strong>emulación móvil</strong> y pruebas continuas para asegurar{" "}
-              <strong>rendimiento</strong> y <strong>confiabilidad</strong> multiplataforma.
-            </p>
+                {p.tags?.length ? (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <li
+                        key={t}
+                        className="rounded-full border border-[#810010]/25 bg-[#edebdd] px-2.5 py-1 text-xs text-[#810100]"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center rounded-lg bg-[#edebdd] px-3 py-2 text-sm font-[PT-Bold] text-[#810100] hover:bg-[#6b000e]"
+                    >
+                      Ver
+                    </a>
+                  )}
+                  {p.repo && p.repo.length > 0 && (
+                    <a
+                      href={p.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center rounded-lg border border-[#810010]/30 bg-white px-3 py-2 text-sm font-[PT-Regular] text-[#810010] hover:bg-white/70"
+                    >
+                      Código
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-xl bg-[#810010] px-5 py-3 font-[PT-Bold] text-[#edebdd] ring-1 ring-[#810010]/20 transition hover:bg-[#6b000e]"
-          >
-            Ver demo en producción
-          </a>
+      {/* P2: EXPERIENCIA */}
+      <section
+        className="min-h-screen bg-[#edebdd]"
+        style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
+      >
+        <div className="max-w-7xl mx-auto h-full px-6 py-12 md:py-16 flex flex-col">
+          <header className="mb-8 md:mb-10">
+            <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810010]">Experiencia</h2>
+            <p className="mt-3 text-[#810010]/90 max-w-3xl font-[PT-Regular]">
+              Un resumen de mi camino como desarrollador y diseñador web.
+            </p>
+          </header>
 
-          {repoUrl && (
+          <div className="relative mt-4 md:mt-6 pl-6 md:pl-8 max-w-3xl">
+            <div className="absolute left-2 md:left-3 top-0 bottom-0 w-[2px] bg-[#810010]/30" />
+            <ul className="space-y-8">
+              {experience.map((e, idx) => (
+                <li key={idx} className="relative">
+                  <span className="absolute -left-0.5 md:-left-1.5 top-1 h-3 w-3 md:h-3.5 md:w-3.5 rounded-full bg-[#810010]" />
+                  <div className="rounded-2xl bg-[#edebdd] border border-[#810010]/20 p-4">
+                    <div className="flex flex-wrap items-baseline gap-x-3">
+                      <span className="text-sm font-[PT-Bold] text-[#810010]/80">{e.period}</span>
+                      <h3 className="text-lg font-[PT-Bold] text-[#810010]">{e.title}</h3>
+                      {e.org && (
+                        <span className="text-sm text-[#810010]/70 font-[PT-Regular]">· {e.org}</span>
+                      )}
+                    </div>
+                    {e.details && (
+                      <p className="mt-2 text-[#810010]/90 text-sm font-[PT-Regular]">{e.details}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-10">
             <a
-              href={repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-xl border border-[#810010]/30 bg-white/70 px-5 py-3 font-[PT-Regular] text-[#810010] hover:bg-white"
+              href="mailto:bastrastudio@gmail.com"
+              className="inline-flex items-center rounded-xl bg-[#810010] px-5 py-3 font-[PT-Bold] text-[#edebdd] ring-1 ring-[#810010]/20 transition hover:bg-[#6b000e]"
             >
-              Ver código
+              Hablemos de tu próximo proyecto
             </a>
-          )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -313,64 +432,52 @@ function WebDevBlock({ url, repoUrl }: { url: string; repoUrl?: string }) {
    Data: categorías y proyectos (Gimena + Sofía)
    =========================== */
 const categories = [
-  {
-    title: "Diseño Gráfico",
-    sub: ["Identidad Visual", "Ilustración", "Editorial", "Packaging"],
-  },
-  {
-    title: "Marketing",
-    sub: ["Social Media", "Estrategia", "Campañas", "Content Creation"],
-  },
-  {
-    title: "Fotografía Profesional",
-    sub: ["Fotografía de Producto", "Fotografía de Eventos", "Video", "Producción"],
-  },
-  {
-    title: "Desarrollo Web",
-    sub: ["Landing Pages", "Tienda Nube", "UI/UX", "Mantenimiento"],
-  },
+  { title: "Diseño Gráfico", sub: ["Identidad Visual", "Ilustración", "Editorial", "Packaging"] },
+  { title: "Marketing", sub: ["Social Media", "Estrategia", "Campañas", "Content Creation"] },
+  { title: "Fotografía Profesional", sub: ["Fotografía de Producto", "Fotografía de Eventos", "Video", "Producción"] },
+  { title: "Desarrollo Web", sub: ["Full Stack Developer", "Tienda Nube", "Diseñador Web", "UX/UI"] },
 ];
 
 const proyectosDiseno = [
   {
     nombre: "Casa Aldo",
     descripcion:
-      "Con más de 50 años de trayectoria, Casa Aldo se dedica a la venta de productos artesanales en cuero, artículos para el campo y marroquinería. Su identidad necesitaba reflejar la tradición, el trabajo artesanal y la cercanía con sus clientes. El diseño desarrollado destaca el valor de lo hecho a mano, la calidad y la calidez en el trato, comunicando la esencia de una empresa que no solo vende, sino que también comparte experiencias en cada encuentro.",
+      "Con más de 50 años de trayectoria, Casa Aldo se dedica a la venta de productos artesanales en cuero, artículos para el campo y marroquinería…",
     secciones: [
       { src: "/images/Gimena/Casa-aldo.jpg", alt: "Casa Aldo – Hero" },
       { src: "/images/Gimena/Casa-aldo-3.jpg", alt: "Casa Aldo – Franjas de marca" },
       { src: "/images/Gimena/Casa-aldo-1.jpg", alt: "Casa Aldo – Tipografías y color" },
     ],
     grid: [
-      { src: "/images/Gimena/Casa-aldo-4.png", alt: "Aplicación 1" },
-      { src: "/images/Gimena/Casa-aldo-5.jpg", alt: "Aplicación 2" },
-      { src: "/images/Gimena/Casa-aldo-6.png", alt: "Aplicación 3" },
-      { src: "/images/Gimena/Casa-aldo-9.png", alt: "Aplicación 4" },
+      { src: "/images/Gimena/Casa-aldo-4.png" },
+      { src: "/images/Gimena/Casa-aldo-5.jpg" },
+      { src: "/images/Gimena/Casa-aldo-6.png" },
+      { src: "/images/Gimena/Casa-aldo-9.png" },
     ],
   },
   {
     nombre: "Botánica Teteria",
     descripcion:
-      "La Botánica es una tetería con ambientación natural y cálida que también funciona como tienda de plantas de interior, macetas artesanales y objetos botánicos. El proyecto se enfocó en diseñar una identidad visual que transmita conexión con la naturaleza, creando un entorno visual que invita a disfrutar de un té rodeado de verde, calma y armonía. Una marca pensada para quienes buscan momentos de desconexión y bienestar en un espacio único.",
+      "La Botánica es una tetería con ambientación natural y cálida…",
     secciones: [
-      { src: "/images/Gimena/Botanica.jpg", alt: "Botanica – Hero" },
-      { src: "/images/Gimena/Botanica-1.jpg", alt: "Botanica – Aplicaciones" },
+      { src: "/images/Gimena/Botanica.jpg" },
+      { src: "/images/Gimena/Botanica-1.jpg" },
     ],
     grid: [
-      { src: "/images/Gimena/Botanica-3.jpg", alt: "Botanica – Caja" },
-      { src: "/images/Gimena/Botanica-2.png", alt: "Botanica – Menú" },
-      { src: "/images/Gimena/Botanica-5.jpg", alt: "Botanica – Bolsas" },
-      { src: "/images/Gimena/Botanica-4.jpg", alt: "Botanica – Stickers" },
+      { src: "/images/Gimena/Botanica-3.jpg" },
+      { src: "/images/Gimena/Botanica-2.png" },
+      { src: "/images/Gimena/Botanica-5.jpg" },
+      { src: "/images/Gimena/Botanica-4.jpg" },
     ],
   },
   {
     nombre: "Tons & Timbres",
     descripcion:
-      "Escola de Música Tons e Timbres es una academia que ofrece educación musical de excelencia para todas las edades, con especialización en piano y atención a personas con TEA. El reto fue transmitir, a través de la identidad visual, la combinación entre la enseñanza clásica y métodos innovadores, creando un ambiente inclusivo, lúdico y estimulante. El resultado es una estética fresca y profesional que refleja el compromiso de la escuela con la música como experiencia transformadora.",
+      "Escola de Música Tons e Timbres…",
     secciones: [
-      { src: "/images/Gimena/Tons.jpg", alt: "Tons & Timbres – Hero" },
-      { src: "/images/Gimena/Tons-5.jpg", alt: "Tons & Timbres – Iconografía" },
-      { src: "/images/Gimena/Tons-2.jpg", alt: "Tons & Timbres – Aplicaciones" },
+      { src: "/images/Gimena/Tons.jpg" },
+      { src: "/images/Gimena/Tons-5.jpg" },
+      { src: "/images/Gimena/Tons-2.jpg" },
     ],
     grid: [
       { src: "/images/Gimena/Tons-4.jpg" },
@@ -381,7 +488,7 @@ const proyectosDiseno = [
   },
 ];
 
-/* Sofía – 7+ fotos: 1 hero + strip */
+/* Sofía – fotos */
 const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/Mirrorball.JPG", alt: "Hero Sofía" },
   { src: "/images/Sofia/HappyBday.JPG" },
@@ -398,57 +505,12 @@ const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/Ludmi-2.jpg" },
 ];
 
-/* ===========
-   ReelCard
-   =========== */
-function ReelCard({ src, cover }: { src: string; cover?: string }) {
-  const [ready, setReady] = useState(false);
-
-  return (
-    <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-xl ring-1 ring-[#edebdd]/20 bg-black/5">
-      <video
-        src={src}
-        muted
-        autoPlay
-        loop
-        playsInline
-        preload="auto"
-        onLoadedData={() => setReady(true)}
-        className="h-full w-full object-cover"
-        aria-label="Reel de marketing"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10" />
-      <div
-        className={[
-          "absolute inset-0 transition-opacity duration-500",
-          ready ? "opacity-0 pointer-events-none" : "opacity-100",
-        ].join(" ")}
-      >
-        {cover ? (
-          <img src={cover} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <div className="h-full w-full bg-[#EDEBDD]" />
-        )}
-        <div className="absolute inset-0 grid place-items-center bg-black/10">
-          <span className="inline-block h-5 w-5 rounded-full border-2 border-[#edebdd]/40 border-t-[#edebdd] animate-spin" />
-          <span className="sr-only">Cargando…</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ===========================
    Página principal
    =========================== */
 export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
   const currentCat = categories[activeIndex];
-
-  // URL de tu demo (cambiá acá tu link deploy)
-  const WEB_DEMO_URL = "https://tu-demo.dev"; // ← reemplaza por tu URL
-  // opcional: const REPO_URL = "https://github.com/tuuser/turepo";
-
   const [marqueeKey, setMarqueeKey] = useState(0);
   useEffect(() => setMarqueeKey((k) => k + 1), [activeIndex]);
 
@@ -490,31 +552,23 @@ export default function Portfolio() {
 
       {/* Diseño Gráfico */}
       {activeIndex === 0 && (
-        <div
-          style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)", width: "100vw" }}
-        >
+        <div style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)", width: "100vw" }}>
           {proyectosDiseno.map((p, i) => (
             <div key={i}>
-              <ProjectFullBleed
-                nombre={p.nombre}
-                descripcion={p.descripcion}
-                secciones={p.secciones}
-              />
+              <ProjectFullBleed nombre={p.nombre} descripcion={p.descripcion} secciones={p.secciones} />
               <FourUpGrid className="my-8 md:my-12" images={p.grid} />
             </div>
           ))}
         </div>
       )}
 
-      {/* Marketing */}
+      {/* Marketing (reels simples con autoplay – si quieres, reusa tu ReelCard) */}
       {activeIndex === 1 && (
         <section className="py-10 sm:py-14 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-[PT-Bold] text-[#810010] mb-6 sm:mb-8">
               Marketing – Reels
             </h2>
-
-            {/* Mobile: 1 col; Desktop: 4 col */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4 lg:gap-8">
               {[
                 { src: "/videos/Darinka.mp4", cover: "/images/posters/Darinka.jpg" },
@@ -522,25 +576,31 @@ export default function Portfolio() {
                 { src: "/videos/Darinka-3.mp4", cover: "/images/posters/Darinka-3.jpg" },
                 { src: "/videos/Isla-video.mp4", cover: "/images/posters/Isla-video.jpg" },
               ].map((r, i) => (
-                <ReelCard key={i} src={r.src} cover={r.cover} />
+                <div key={i} className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-xl ring-1 ring-[#edebdd]/20 bg-black/5">
+                  <video
+                    src={r.src}
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10" />
+                </div>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* Sofía – Fotografía & Audiovisual */}
+      {/* Fotografía & Audiovisual */}
       {activeIndex === 2 && <SofiaHeroAndStrip images={fotosSofia} />}
 
-      {/* Desarrollo Web */}
-      {activeIndex === 3 && (
-        <WebDevBlock
-          url={WEB_DEMO_URL}
-          // repoUrl={REPO_URL}
-        />
-      )}
+      {/* Desarrollo Web (NUEVO) */}
+      {activeIndex === 3 && <WebDevScreens />}
 
-      {/* estilos del marquee */}
+      {/* estilos marquee */}
       <style jsx>{`
         .marquee {
           animation: marquee 24s linear infinite;
