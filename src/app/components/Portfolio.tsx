@@ -315,18 +315,18 @@ function WebDevScreens({
     <>
       {/* P1: PROYECTOS */}
       <section
-        className="min-h-screen bg-[#edebdd]"
+        className="bg-[#edebdd] py-10 md:py-12"
         style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
       >
-        <div className="max-w-7xl mx-auto h-full px-6 py-12 md:py-16 flex flex-col">
-          <header className="mb-8 md:mb-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <header className="mb-6 md:mb-8">
             <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810100]">Proyectos & Perfiles</h2>
-            <p className="mt-3 text-[#810100]/90 max-w-3xl font-[PT-Regular]">
+            <p className="mt-2 text-[#810100]/90 max-w-3xl font-[PT-Regular]">
               Trabajos realizado y proyectos
             </p>
           </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-auto mb-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((p, i) => (
               <article
                 key={i}
@@ -380,20 +380,20 @@ function WebDevScreens({
 
       {/* P2: EXPERIENCIA */}
       <section
-        className="min-h-screen bg-[#edebdd]"
+        className="bg-[#edebdd] py-10 md:py-12"
         style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
       >
-        <div className="max-w-7xl mx-auto h-full px-6 py-12 md:py-16 flex flex-col">
-          <header className="mb-8 md:mb-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <header className="mb-6 md:mb-8">
             <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810010]">Experiencia</h2>
-            <p className="mt-3 text-[#810010]/90 max-w-3xl font-[PT-Regular]">
+            <p className="mt-2 text-[#810010]/90 max-w-3xl font-[PT-Regular]">
               Un resumen de mi camino como desarrollador y diseñador web.
             </p>
           </header>
 
-          <div className="relative mt-4 md:mt-6 pl-6 md:pl-8 max-w-3xl">
+          <div className="relative pl-6 md:pl-8 max-w-3xl">
             <div className="absolute left-2 md:left-3 top-0 bottom-0 w-[2px] bg-[#810010]/30" />
-            <ul className="space-y-8">
+            <ul className="space-y-6 md:space-y-7">
               {experience.map((e, idx) => (
                 <li key={idx} className="relative">
                   <span className="absolute -left-0.5 md:-left-1.5 top-1 h-3 w-3 md:h-3.5 md:w-3.5 rounded-full bg-[#810010]" />
@@ -414,7 +414,7 @@ function WebDevScreens({
             </ul>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-8 md:mt-10">
             <a
               href="mailto:bastrastudio@gmail.com"
               className="inline-flex items-center rounded-xl bg-[#810010] px-5 py-3 font-[PT-Bold] text-[#edebdd] ring-1 ring-[#810010]/20 transition hover:bg-[#6b000e]"
@@ -427,6 +427,7 @@ function WebDevScreens({
     </>
   );
 }
+
 
 /* ===========================
    Data: categorías y proyectos (Gimena + Sofía)
