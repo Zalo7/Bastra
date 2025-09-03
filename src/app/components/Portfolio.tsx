@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 /* ===========================
    Bloque: Proyecto a pantalla completa (full-bleed)
@@ -512,8 +512,6 @@ const fotosSofia: { src: string; alt?: string }[] = [
 export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
   const currentCat = categories[activeIndex];
-  const [marqueeKey, setMarqueeKey] = useState(0);
-  useEffect(() => setMarqueeKey((k) => k + 1), [activeIndex]);
 
   return (
     <section className="relative min-h-screen bg-[#edebdd]">
@@ -522,24 +520,35 @@ export default function Portfolio() {
           (04) PORTFOLIO
         </h3>
 
-        {/* Marquee */}
-        <div className="relative overflow-hidden group">
-          <div key={marqueeKey} className="marquee flex gap-10 md:gap-12 whitespace-nowrap">
-            {[...categories, ...categories].map((cat, i) => (
-              <button
-                key={`${cat.title}-${i}`}
-                onClick={() => setActiveIndex(i % categories.length)}
-                className={`px-3 md:px-6 py-2 md:py-3 text-2xl md:text-6xl font-[PT-Bold] transition-colors ${
-                  categories[activeIndex].title === cat.title
-                    ? "text-[#810010]"
-                    : "text-[#810010]/30 hover:text-[#810010]"
-                }`}
-              >
-                {cat.title}
-              </button>
-            ))}
-          </div>
-        </div>
+  {/* CATEGORÍAS ESTÁTICAS (2 columnas en mobile, 1 fila en desktop) */}
+<div
+  className="
+    grid grid-cols-2 gap-3 justify-items-center w-full max-w-6xl mx-auto px-2
+    md:flex md:flex-nowrap md:items-center md:justify-between md:gap-6
+  "
+>
+  {categories.map((cat, i) => (
+    <button
+      key={cat.title}
+      onClick={() => setActiveIndex(i)}
+      className={`whitespace-nowrap px-2 py-1
+                  text-base sm:text-lg md:text-[clamp(1.6rem,2.6vw,3.2rem)]
+                  font-[PT-Bold] transition-colors ${
+        categories[activeIndex].title === cat.title
+          ? "text-[#810010]"
+          : "text-[#810010]/40 hover:text-[#810010]"
+      }`}
+    >
+      {cat.title}
+    </button>
+  ))}
+</div>
+
+
+
+
+
+
 
         {/* Subsecciones */}
         <ul className="mt-3 md:mt-6 flex flex-wrap items-center justify-center gap-x-6 md:gap-x-8 gap-y-1.5 md:gap-y-2 text-sm md:text-xl font-[PT-Regular] text-[#810010]">
@@ -563,7 +572,7 @@ export default function Portfolio() {
         </div>
       )}
 
-      {/* Marketing (reels simples con autoplay – si quieres, reusa tu ReelCard) */}
+      {/* Marketing */}
       {activeIndex === 1 && (
         <section className="py-10 sm:py-14 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -598,26 +607,8 @@ export default function Portfolio() {
       {/* Fotografía & Audiovisual */}
       {activeIndex === 2 && <SofiaHeroAndStrip images={fotosSofia} />}
 
-      {/* Desarrollo Web (NUEVO) */}
+      {/* Desarrollo Web */}
       {activeIndex === 3 && <WebDevScreens />}
-
-      {/* estilos marquee */}
-      <style jsx>{`
-        .marquee {
-          animation: marquee 24s linear infinite;
-        }
-        .group:hover .marquee {
-          animation-play-state: paused;
-        }
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </section>
   );
 }
