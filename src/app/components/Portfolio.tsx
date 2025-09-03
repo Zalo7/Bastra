@@ -40,8 +40,8 @@ function ProjectFullBleed({
           className="
             relative
             w-screen
-            bg-[#edebdd]                    /* fondo neutro si la img no llena */
-            h-auto md:h-[70vh]              /* mobile: auto; desktop: 70vh */
+            bg-[#edebdd]
+            h-auto md:h-[70vh]
             overflow-hidden
           "
           style={{
@@ -168,9 +168,7 @@ function SofiaHeroAndStrip({
                 key={`${img.src}-${i}`}
                 className="flex-none h-full"
                 style={{
-                  // anchuras por defecto para mobile; se sobre-escriben en media queries
                   width: "50vw",
-                  // línea de 2px entre cada foto
                   borderRight: "2px solid #edebdd",
                 }}
               >
@@ -186,6 +184,9 @@ function SofiaHeroAndStrip({
           </div>
         </div>
       </div>
+
+      {/* Espaciador crema para que no se pegue al footer */}
+      <div className="h-12 sm:h-16 md:h-20 bg-[#edebdd]" />
 
       <style jsx>{`
         /* Carrusel continuo */
@@ -223,6 +224,87 @@ function SofiaHeroAndStrip({
           }
         }
       `}</style>
+    </section>
+  );
+}
+
+/* ===========================
+   Sección Desarrollo Web (en la misma página)
+   =========================== */
+function WebDevBlock({ url, repoUrl }: { url: string; repoUrl?: string }) {
+  return (
+    <section className="bg-[#edebdd] py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <header className="mb-8 md:mb-10">
+          <h2 className="text-3xl md:text-5xl font-[PT-Bold] text-[#810010]">Desarrollo Web</h2>
+          <p className="mt-3 text-[#810010]/90 max-w-3xl font-[PT-Regular]">
+            Front End Developer con foco en interfaces limpias, performance y consistencia visual.
+            Trabajo con <strong>Next.js 14</strong>, <strong>React</strong>, <strong>TypeScript</strong> y{" "}
+            <strong>Tailwind CSS</strong>.
+          </p>
+        </header>
+
+        {/* Badges de stack */}
+        <ul className="flex flex-wrap gap-2 mb-8">
+          {["Next.js 14", "React", "TypeScript", "Tailwind CSS", "React Native", "Node.js"].map(
+            (t) => (
+              <li
+                key={t}
+                className="rounded-full border border-[#810010]/25 bg-white/70 px-3 py-1 text-sm text-[#810010]"
+              >
+                {t}
+              </li>
+            )
+          )}
+        </ul>
+
+        {/* Bullets de experiencia */}
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5">
+            <p className="text-[#810010]">
+              ● Colaboré con diseño y desarrollo para construir interfaces <strong>responsive</strong>{" "}
+              con Next.js 14, React, TypeScript y Tailwind CSS, aportando ideas para mejorar la{" "}
+              <strong>UX</strong> y la consistencia visual.
+            </p>
+          </div>
+          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5">
+            <p className="text-[#810010]">
+              ● Participé en una app móvil con <strong>React Native</strong>, integrando back-end en{" "}
+              <strong>Node.js</strong> y adaptando el producto para <strong>iOS</strong> y{" "}
+              <strong>Android</strong>.
+            </p>
+          </div>
+          <div className="rounded-2xl bg-white/70 border border-[#810010]/20 p-5 md:col-span-2">
+            <p className="text-[#810010]">
+              ● Experiencia en <strong>emulación móvil</strong> y pruebas continuas para asegurar{" "}
+              <strong>rendimiento</strong> y <strong>confiabilidad</strong> multiplataforma.
+            </p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-xl bg-[#810010] px-5 py-3 font-[PT-Bold] text-[#edebdd] ring-1 ring-[#810010]/20 transition hover:bg-[#6b000e]"
+          >
+            Ver demo en producción
+          </a>
+
+          {repoUrl && (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-xl border border-[#810010]/30 bg-white/70 px-5 py-3 font-[PT-Regular] text-[#810010] hover:bg-white"
+            >
+              Ver código
+            </a>
+          )}
+        </div>
+      </div>
     </section>
   );
 }
@@ -301,7 +383,7 @@ const proyectosDiseno = [
 
 /* Sofía – 7+ fotos: 1 hero + strip */
 const fotosSofia: { src: string; alt?: string }[] = [
-  { src: "/images/Sofia/Mirrorball.JPG", alt: "Hero Sofía" }, // HERO
+  { src: "/images/Sofia/Mirrorball.JPG", alt: "Hero Sofía" },
   { src: "/images/Sofia/HappyBday.JPG" },
   { src: "/images/Sofia/Party15.JPG" },
   { src: "/images/Sofia/Cake.JPG" },
@@ -316,12 +398,56 @@ const fotosSofia: { src: string; alt?: string }[] = [
   { src: "/images/Sofia/Ludmi-2.jpg" },
 ];
 
+/* ===========
+   ReelCard
+   =========== */
+function ReelCard({ src, cover }: { src: string; cover?: string }) {
+  const [ready, setReady] = useState(false);
+
+  return (
+    <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-xl ring-1 ring-[#edebdd]/20 bg-black/5">
+      <video
+        src={src}
+        muted
+        autoPlay
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={() => setReady(true)}
+        className="h-full w-full object-cover"
+        aria-label="Reel de marketing"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10" />
+      <div
+        className={[
+          "absolute inset-0 transition-opacity duration-500",
+          ready ? "opacity-0 pointer-events-none" : "opacity-100",
+        ].join(" ")}
+      >
+        {cover ? (
+          <img src={cover} alt="" className="h-full w-full object-cover" />
+        ) : (
+          <div className="h-full w-full bg-[#EDEBDD]" />
+        )}
+        <div className="absolute inset-0 grid place-items-center bg-black/10">
+          <span className="inline-block h-5 w-5 rounded-full border-2 border-[#edebdd]/40 border-t-[#edebdd] animate-spin" />
+          <span className="sr-only">Cargando…</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ===========================
    Página principal
    =========================== */
 export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
   const currentCat = categories[activeIndex];
+
+  // URL de tu demo (cambiá acá tu link deploy)
+  const WEB_DEMO_URL = "https://tu-demo.dev"; // ← reemplaza por tu URL
+  // opcional: const REPO_URL = "https://github.com/tuuser/turepo";
 
   const [marqueeKey, setMarqueeKey] = useState(0);
   useEffect(() => setMarqueeKey((k) => k + 1), [activeIndex]);
@@ -405,53 +531,32 @@ export default function Portfolio() {
 
       {/* Sofía – Fotografía & Audiovisual */}
       {activeIndex === 2 && <SofiaHeroAndStrip images={fotosSofia} />}
+
+      {/* Desarrollo Web */}
+      {activeIndex === 3 && (
+        <WebDevBlock
+          url={WEB_DEMO_URL}
+          // repoUrl={REPO_URL}
+        />
+      )}
+
+      {/* estilos del marquee */}
+      <style jsx>{`
+        .marquee {
+          animation: marquee 24s linear infinite;
+        }
+        .group:hover .marquee {
+          animation-play-state: paused;
+        }
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </section>
-  );
-}
-
-/* ===========
-   ReelCard
-   =========== */
-function ReelCard({ src, cover }: { src: string; cover?: string }) {
-  const [ready, setReady] = useState(false);
-
-  return (
-    <div className="relative aspect-[9/16] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-xl ring-1 ring-[#edebdd]/20 bg-black/5">
-      {/* Video: autoplay, muted, loop */}
-      <video
-        src={src}
-        muted
-        autoPlay
-        loop
-        playsInline
-        preload="auto"
-        onLoadedData={() => setReady(true)}
-        className="h-full w-full object-cover"
-        aria-label="Reel de marketing"
-      />
-
-      {/* Vignette sutil */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-black/10" />
-
-      {/* Cover + loader hasta que esté listo */}
-      <div
-        className={[
-          "absolute inset-0 transition-opacity duration-500",
-          ready ? "opacity-0 pointer-events-none" : "opacity-100",
-        ].join(" ")}
-      >
-        {cover ? (
-          <img src={cover} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <div className="h-full w-full bg-[#EDEBDD]" />
-        )}
-
-        {/* Spinner encima del cover */}
-        <div className="absolute inset-0 grid place-items-center bg-black/10">
-          <span className="inline-block h-5 w-5 rounded-full border-2 border-[#edebdd]/40 border-t-[#edebdd] animate-spin" />
-          <span className="sr-only">Cargando…</span>
-        </div>
-      </div>
-    </div>
   );
 }
